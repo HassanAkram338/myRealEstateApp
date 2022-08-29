@@ -2,6 +2,8 @@ import React,{useState,useContext} from "react";
 import {Link,useNavigate} from "react-router-dom"
 import {  signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
+import { AuthContext } from './../../context/AuthContext';
+import { type } from "@testing-library/user-event/dist/type";
 
 const initialState = {
   email : "",
@@ -13,9 +15,8 @@ export default function Register() {
 
   const [data,setData] = useState(initialState);
   const[isProcessing,setIsProcessing]=useState(false)
-  const [isAuthenticated,setIsAuthenticated ] = useState(false);
 
-  
+    const {dispatch} = useContext(AuthContext)  
   
   const navigate = useNavigate();
   
@@ -41,8 +42,9 @@ export default function Register() {
   
       console.log("User Signed In successfully");
       setIsProcessing(false);
+      dispatch({type : "LOGIN"})
       navigate('/')
-
+      
       // ...
     })
     .catch((error) => {

@@ -4,6 +4,7 @@ import {  createUserWithEmailAndPassword } from "firebase/auth";
 import {doc,setDoc} from "firebase/firestore/lite"
 import {firestore} from "../../config/firebase"
 import { auth } from "../../config/firebase";
+import { AuthContext } from './../../context/AuthContext';
 
 const initialState = {
   email : "",
@@ -11,11 +12,12 @@ const initialState = {
 }
 
 export default function Register() {
+  const {dispatch} = useContext(AuthContext);
+
 
 
   const [state,setState] = useState(initialState);
   const[isProcessing,setIsProcessing]=useState(false);
-  const [isAuthenticated,setIsAuthenticated ] = useState(false);
   
   
   const navigate = useNavigate();
@@ -59,7 +61,7 @@ export default function Register() {
     });
     console.log("user has been added to firestore");
     setIsProcessing(false);
-    // dispatch({type : "LOGIN",payload : {user}});
+    dispatch({type : "LOGIN"});
     navigate('/')
    
   }

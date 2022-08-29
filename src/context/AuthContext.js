@@ -9,7 +9,7 @@ const initialState = {isAuthenticated : false};
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      return { isAuthenticated: true};
+      return { isAuthenticated: true,};
     case "LOGOUT":
       return { isAuthenticated: false };
 
@@ -42,7 +42,7 @@ const AuthContextProvider = (props) => {
 
 
   return (
-    <AuthContext.Provider value={{...state, dispatch }}>
+    <AuthContext.Provider value={{...state, dispatch, }}>
       {props.children}
     </AuthContext.Provider>
   );
